@@ -1,5 +1,6 @@
 package com.example.airlines365.model;
 
+import com.example.airlines365.model.enums.Seat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,8 @@ public class BoardingPass {
     private Passenger passageiro;
     @Id
     private String eticket;
-    private String assento;
+    @Enumerated(EnumType.STRING)
+    private Seat assento;
     private Boolean malasDespachadas;
     private LocalDateTime dataHoraConfirmacao;
 }
