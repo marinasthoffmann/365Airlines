@@ -12,4 +12,6 @@ public enum Seat {
     A8, B8, C8, D8, E8, F8,
     A9, B9, C9, D9, E9, F9;
 
+//    TODO: adicionar values 1a, 2a, ...
+
 }

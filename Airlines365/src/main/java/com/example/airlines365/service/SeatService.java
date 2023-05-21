@@ -3,9 +3,7 @@ package com.example.airlines365.service;
 import com.example.airlines365.model.enums.Seat;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,7 +16,7 @@ public class SeatService {
                 .collect(Collectors.toList());
     }
 
-    private static String getFormattedSeat(Seat value) {
+    public static String getFormattedSeat(Seat value) {
         StringBuilder assento_reverso = new StringBuilder(value.toString());
         return assento_reverso.reverse().toString();
     }
