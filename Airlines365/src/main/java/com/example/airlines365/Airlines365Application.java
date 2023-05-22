@@ -1,5 +1,6 @@
 package com.example.airlines365;
 
+import com.example.airlines365.utils.StringToSeatConverter;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,7 +18,9 @@ public class Airlines365Application {
 
 	@Bean
 	public ModelMapper modelMapper() {
-		return new ModelMapper();
+		ModelMapper modelMapper = new ModelMapper();
+		modelMapper.addConverter(new StringToSeatConverter());
+		return modelMapper;
 	}
 
 	@Bean

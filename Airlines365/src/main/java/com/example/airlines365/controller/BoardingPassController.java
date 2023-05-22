@@ -29,9 +29,7 @@ public class BoardingPassController {
     public ResponseEntity<BoardingPassResponse> checkIn(@RequestBody @Valid BoardingPassRequest request)
             throws RegistroNaoEncontradoException {
         Long cpf = request.getCpf();
-        Seat assento = Seat.valueOf(request.getAssento());
         BoardingPass confirmacao = mapper.map(request, BoardingPass.class);
-        confirmacao.setAssento(assento);
         confirmacao = service.checkin(cpf, confirmacao);
         BoardingPassResponse response = mapper.map(confirmacao, BoardingPassResponse.class);
         return ResponseEntity.created(URI.create(response.getEticket())).body(response);
