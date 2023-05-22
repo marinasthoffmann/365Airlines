@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,12 +12,16 @@ import java.util.stream.Collectors;
 public class SeatService {
 
     public List<String> consultar() {
-        return Arrays.stream(Seat.values())
-                .map(SeatService::getFormattedSeat)
-                .collect(Collectors.toList());
+
+        List<String> assentos = new ArrayList<>();
+
+        for (Seat seat : Seat.values()) {
+            assentos.add(seat.getValue());
+        }
+        return assentos;
     }
 
-    private static String getFormattedSeat(Seat value) {
+    public static String getFormattedSeat(Seat value) {
         StringBuilder assento_reverso = new StringBuilder(value.toString());
         return assento_reverso.reverse().toString();
     }
