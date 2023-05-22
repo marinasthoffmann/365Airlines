@@ -15,9 +15,6 @@ import java.time.LocalDateTime;
 @Table(name = "EMBARQUES")
 public class BoardingPass {
 
-    @OneToOne
-    @JoinColumn(name = "cpf", referencedColumnName = "cpf")
-    private Passenger passageiro;
     @Id
     private String eticket;
     @Enumerated(EnumType.STRING)

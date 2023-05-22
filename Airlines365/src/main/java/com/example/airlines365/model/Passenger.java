@@ -20,4 +20,7 @@ public class Passenger {
     @Enumerated(EnumType.STRING)
     private Classification classificacao;
     private Integer milhas;
+    @OneToOne
+    @JoinColumn(name = "eticket", referencedColumnName = "eticket")
+    private BoardingPass confirmacao;
 }
