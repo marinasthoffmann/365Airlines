@@ -23,4 +23,8 @@ public class Passenger {
     @OneToOne
     @JoinColumn(name = "eticket", referencedColumnName = "eticket")
     private BoardingPass confirmacao;
+
+    public void adicionarMilhas(int milhas) {
+        this.milhas += milhas;
+    }
 }

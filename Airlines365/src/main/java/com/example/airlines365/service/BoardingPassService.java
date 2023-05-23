@@ -36,6 +36,7 @@ public class BoardingPassService {
         confirmacao.setDataHoraConfirmacao(LocalDateTime.now());
         confirmacao = boardingPassRepository.save(confirmacao);
         passageiro.setConfirmacao(confirmacao);
+        atualizarMilhas(passageiro);
         passengerRepository.save(passageiro);
         return confirmacao;
     }
@@ -68,5 +69,21 @@ public class BoardingPassService {
 
     private String generateEticket() {
         return UUID.randomUUID().toString();
+    }
+
+    private void atualizarMilhas(Passenger passageiro) {
+        String classificacao = passageiro.getClassificacao().toString();
+        Integer milhasAdicionadas;
+
+        switch (classificacao) {
+            case "VIP" -> milhasAdicionadas = 100;
+            case "OURO" -> milhasAdicionadas = 80;
+            case "PRATA" -> milhasAdicionadas = 50;
+            case "BRONZE" -> milhasAdicionadas = 30;
+            case "ASSOCIADO" -> milhasAdicionadas = 10;
+            default -> milhasAdicionadas = 0;
+        }
+
+        passageiro.adicionarMilhas(milhasAdicionadas);
     }
 }
