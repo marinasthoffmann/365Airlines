@@ -2,6 +2,7 @@ package com.example.airlines365.service;
 
 import com.example.airlines365.exception.AssentoOcupadoException;
 import com.example.airlines365.exception.FileiraEmergenciaException;
+import com.example.airlines365.exception.MalaNaoDespachadaException;
 import com.example.airlines365.exception.PassageiroNaoEncontradoException;
 import com.example.airlines365.model.BoardingPass;
 import com.example.airlines365.model.Passenger;
@@ -25,7 +26,9 @@ public class BoardingPassService {
     private BoardingPassRepository boardingPassRepository;
 
     public BoardingPass checkin(Long cpf, BoardingPass confirmacao)
-            throws PassageiroNaoEncontradoException, AssentoOcupadoException, FileiraEmergenciaException {
+            throws PassageiroNaoEncontradoException, AssentoOcupadoException,
+            FileiraEmergenciaException, MalaNaoDespachadaException {
+
         Passenger passageiro = passengerRepository.findById(cpf).orElseThrow(PassageiroNaoEncontradoException::new);
         verificaRegrasDeNegocio(passageiro, confirmacao);
         String eticket = generateEticket();
@@ -38,7 +41,7 @@ public class BoardingPassService {
     }
 
     private void verificaRegrasDeNegocio(Passenger passageiro, BoardingPass confirmacao)
-            throws AssentoOcupadoException, FileiraEmergenciaException {
+            throws AssentoOcupadoException, FileiraEmergenciaException, MalaNaoDespachadaException {
         verificaDisponibilidadeAssento(confirmacao);
         verificaFileiraEmergencia(passageiro, confirmacao);
     }
@@ -50,14 +53,17 @@ public class BoardingPassService {
     }
 
     private void verificaFileiraEmergencia(Passenger passageiro, BoardingPass confirmacao)
-            throws FileiraEmergenciaException {
+            throws FileiraEmergenciaException, MalaNaoDespachadaException {
         Pattern pattern = Pattern.compile("[4-5]");
         Boolean ehFileiraEmergencia = pattern.matcher(confirmacao.getAssento().toString()).find();
         Boolean passageiroEhMenorIdade =
                 (Period.between(passageiro.getDataNascimento(), LocalDate.now()).getYears()) < 18;
-        if (ehFileiraEmergencia && passageiroEhMenorIdade) {
+        if (ehFileiraEmergencia && passageiroEhMenorIdade)
             throw new FileiraEmergenciaException();
-        }
+
+        Boolean malaNaoDespachada = !confirmacao.getMalasDespachadas();
+        if (ehFileiraEmergencia && malaNaoDespachada)
+            throw new MalaNaoDespachadaException();
     }
 
     private String generateEticket() {

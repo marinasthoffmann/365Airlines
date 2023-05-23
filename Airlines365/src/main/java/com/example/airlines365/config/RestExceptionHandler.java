@@ -1,10 +1,7 @@
 package com.example.airlines365.config;
 
 import com.example.airlines365.dto.ErrorResponse;
-import com.example.airlines365.exception.AssentoNaoExistenteException;
-import com.example.airlines365.exception.AssentoOcupadoException;
-import com.example.airlines365.exception.FileiraEmergenciaException;
-import com.example.airlines365.exception.PassageiroNaoEncontradoException;
+import com.example.airlines365.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -34,6 +31,12 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(FileiraEmergenciaException.class)
     public ResponseEntity<Object> handleFileiraEmergenciaException(FileiraEmergenciaException e) {
+        ErrorResponse erro = new ErrorResponse(e.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
+    }
+
+    @ExceptionHandler(MalaNaoDespachadaException.class)
+    public ResponseEntity<Object> handleMalaNaoDespachadaException(MalaNaoDespachadaException e) {
         ErrorResponse erro = new ErrorResponse(e.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
     }
