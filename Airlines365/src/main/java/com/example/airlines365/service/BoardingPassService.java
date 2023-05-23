@@ -3,14 +3,12 @@ package com.example.airlines365.service;
 import com.example.airlines365.exception.RegistroNaoEncontradoException;
 import com.example.airlines365.model.BoardingPass;
 import com.example.airlines365.model.Passenger;
-import com.example.airlines365.model.enums.Seat;
 import com.example.airlines365.repository.BoardingPassRepository;
 import com.example.airlines365.repository.PassengerRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -23,10 +21,12 @@ public class BoardingPassService {
 
     public BoardingPass checkin(Long cpf, BoardingPass confirmacao) throws RegistroNaoEncontradoException {
         Passenger passageiro = passengerRepository.findById(cpf).orElseThrow(RegistroNaoEncontradoException::new);
-        confirmacao.setPassageiro(passageiro);
-        confirmacao.setEticket(generateEticket());
+        String eticket = generateEticket();
+        confirmacao.setEticket(eticket);
         confirmacao.setDataHoraConfirmacao(LocalDateTime.now());
         confirmacao = boardingPassRepository.save(confirmacao);
+        passageiro.setConfirmacao(confirmacao);
+        passengerRepository.save(passageiro);
         return confirmacao;
     }
 

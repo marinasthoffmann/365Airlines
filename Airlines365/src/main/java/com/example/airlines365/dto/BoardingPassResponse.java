@@ -7,6 +7,6 @@ import java.time.LocalDateTime;
 @Data
 public class BoardingPassResponse {
     private String eticket;
-    private LocalDateTime dataHoraConfirmacao = LocalDateTime.now();
+    private LocalDateTime dataHoraConfirmacao;
 
 }

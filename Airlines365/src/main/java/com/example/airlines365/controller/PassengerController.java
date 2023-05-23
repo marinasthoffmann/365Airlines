@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/passageiros")
@@ -27,8 +28,14 @@ public class PassengerController {
     public ResponseEntity<List<PassengerConfirmationResponse>> consultar() {
         List<Passenger> passageiros = service.consultar();
         List<PassengerConfirmationResponse> response = passageiros.stream()
-                .map(p -> mapper.map(p, PassengerConfirmationResponse.class))
-                .toList();
+                .map(p -> {
+                    PassengerConfirmationResponse passengerResponse = mapper.map(p, PassengerConfirmationResponse.class);
+                    if (p.getConfirmacao() != null && p.getConfirmacao().getAssento() != null) {
+                        passengerResponse.setAssento(p.getConfirmacao().getAssento());
+                    }
+                    return passengerResponse;
+                })
+                .collect(Collectors.toList());
 
         return ResponseEntity.ok(response);
     }

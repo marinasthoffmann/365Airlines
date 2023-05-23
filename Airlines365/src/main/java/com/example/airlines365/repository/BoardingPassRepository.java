@@ -7,6 +7,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BoardingPassRepository extends JpaRepository<BoardingPass, String> {
 
-    BoardingPass findBoardingPassByPassageiro_Cpf(Long cpf);
-
 }

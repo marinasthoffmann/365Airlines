@@ -1,5 +1,7 @@
 package com.example.airlines365;
 
+import com.example.airlines365.dto.PassengerConfirmationResponse;
+import com.example.airlines365.model.Passenger;
 import com.example.airlines365.utils.StringToSeatConverter;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
@@ -20,6 +22,14 @@ public class Airlines365Application {
 	public ModelMapper modelMapper() {
 		ModelMapper modelMapper = new ModelMapper();
 		modelMapper.addConverter(new StringToSeatConverter());
+		modelMapper.typeMap(Passenger.class, PassengerConfirmationResponse.class).addMappings(mapper -> {
+			mapper.map(src -> src.getConfirmacao().getEticket(),
+					PassengerConfirmationResponse::setEticket);
+			mapper.map(src -> src.getConfirmacao().getAssento(),
+					PassengerConfirmationResponse::setAssento);
+			mapper.map(src -> src.getConfirmacao().getDataHoraConfirmacao(),
+					PassengerConfirmationResponse::setDataHoraConfirmacao);
+		});
 		return modelMapper;
 	}
 

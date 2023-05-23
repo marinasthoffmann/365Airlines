@@ -1,6 +1,7 @@
 package com.example.airlines365.dto;
 
 import com.example.airlines365.model.enums.Classification;
+import com.example.airlines365.model.enums.Seat;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -17,4 +18,9 @@ public class PassengerConfirmationResponse {
     private String eticket;
     private String assento;
     private LocalDateTime dataHoraConfirmacao;
+
+    public void setAssento(Seat assentoInput) {
+        this.assento = (assentoInput == null) ? null : assentoInput.getValue();
+    }
+
 }
