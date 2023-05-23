@@ -2,6 +2,7 @@ package com.example.airlines365.config;
 
 import com.example.airlines365.dto.ErrorResponse;
 import com.example.airlines365.exception.AssentoNaoExistenteException;
+import com.example.airlines365.exception.AssentoOcupadoException;
 import com.example.airlines365.exception.PassageiroNaoEncontradoException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,5 +23,11 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleAssentoNaoExistenteException(AssentoNaoExistenteException e) {
         ErrorResponse erro = new ErrorResponse(e.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
+    }
+
+    @ExceptionHandler(AssentoOcupadoException.class)
+    public ResponseEntity<Object> handleAssentoOcupadoException(AssentoOcupadoException e) {
+        ErrorResponse erro = new ErrorResponse(e.getMessage());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(erro);
     }
 }
