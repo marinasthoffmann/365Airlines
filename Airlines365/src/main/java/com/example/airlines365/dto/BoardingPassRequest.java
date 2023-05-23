@@ -16,7 +16,7 @@ public class BoardingPassRequest {
     private Long cpf;
 
     @NotEmpty(message = "{campo.obrigatorio}")
-    @Pattern(regexp = "^[1-9][a-fA-F]$")
+    @Pattern(regexp = "^[0-9][a-zA-Z]$")
     private String assento;
 
     @NotNull(message = "{campo.obrigatorio}")

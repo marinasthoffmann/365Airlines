@@ -2,7 +2,7 @@ package com.example.airlines365.controller;
 
 import com.example.airlines365.dto.PassengerConfirmationResponse;
 import com.example.airlines365.dto.PassengerResponse;
-import com.example.airlines365.exception.RegistroNaoEncontradoException;
+import com.example.airlines365.exception.PassageiroNaoEncontradoException;
 import com.example.airlines365.model.Passenger;
 import com.example.airlines365.service.PassengerService;
 import lombok.AllArgsConstructor;
@@ -42,7 +42,7 @@ public class PassengerController {
 
     @GetMapping("{cpf}")
     public ResponseEntity<PassengerResponse> consultar(@PathVariable("cpf") Long cpf)
-            throws RegistroNaoEncontradoException {
+            throws PassageiroNaoEncontradoException {
         Passenger passageiro = service.consultar(cpf);
         PassengerResponse response = mapper.map(passageiro, PassengerResponse.class);
 
