@@ -3,6 +3,7 @@ package com.example.airlines365.controller;
 import com.example.airlines365.dto.BoardingPassRequest;
 import com.example.airlines365.dto.BoardingPassResponse;
 import com.example.airlines365.exception.AssentoOcupadoException;
+import com.example.airlines365.exception.FileiraEmergenciaException;
 import com.example.airlines365.exception.PassageiroNaoEncontradoException;
 import com.example.airlines365.model.BoardingPass;
 import com.example.airlines365.service.BoardingPassService;
@@ -24,7 +25,7 @@ public class BoardingPassController {
 
     @PostMapping
     public ResponseEntity<BoardingPassResponse> checkIn(@RequestBody @Valid BoardingPassRequest request)
-            throws PassageiroNaoEncontradoException, AssentoOcupadoException {
+            throws PassageiroNaoEncontradoException, AssentoOcupadoException, FileiraEmergenciaException {
         Long cpf = request.getCpf();
         BoardingPass confirmacao = mapper.map(request, BoardingPass.class);
         confirmacao = service.checkin(cpf, confirmacao);
