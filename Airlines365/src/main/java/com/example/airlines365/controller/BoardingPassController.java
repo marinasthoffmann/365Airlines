@@ -2,11 +2,11 @@ package com.example.airlines365.controller;
 
 import com.example.airlines365.dto.BoardingPassRequest;
 import com.example.airlines365.dto.BoardingPassResponse;
-import com.example.airlines365.dto.PassengerConfirmationResponse;
-import com.example.airlines365.exception.RegistroNaoEncontradoException;
+import com.example.airlines365.exception.AssentoOcupadoException;
+import com.example.airlines365.exception.FileiraEmergenciaException;
+import com.example.airlines365.exception.MalaNaoDespachadaException;
+import com.example.airlines365.exception.PassageiroNaoEncontradoException;
 import com.example.airlines365.model.BoardingPass;
-import com.example.airlines365.model.Passenger;
-import com.example.airlines365.model.enums.Seat;
 import com.example.airlines365.service.BoardingPassService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/passageiros/confirmacao")
@@ -27,7 +26,9 @@ public class BoardingPassController {
 
     @PostMapping
     public ResponseEntity<BoardingPassResponse> checkIn(@RequestBody @Valid BoardingPassRequest request)
-            throws RegistroNaoEncontradoException {
+            throws PassageiroNaoEncontradoException, AssentoOcupadoException,
+            FileiraEmergenciaException, MalaNaoDespachadaException {
+
         Long cpf = request.getCpf();
         BoardingPass confirmacao = mapper.map(request, BoardingPass.class);
         confirmacao = service.checkin(cpf, confirmacao);

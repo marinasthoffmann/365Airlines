@@ -1,6 +1,6 @@
 package com.example.airlines365.service;
 
-import com.example.airlines365.exception.RegistroNaoEncontradoException;
+import com.example.airlines365.exception.PassageiroNaoEncontradoException;
 import com.example.airlines365.model.Passenger;
 import com.example.airlines365.repository.PassengerRepository;
 import lombok.AllArgsConstructor;
@@ -18,7 +18,7 @@ public class PassengerService {
         return repository.findAll();
     }
 
-    public Passenger consultar(Long cpf) throws RegistroNaoEncontradoException {
-        return repository.findById(cpf).orElseThrow(RegistroNaoEncontradoException::new);
+    public Passenger consultar(Long cpf) throws PassageiroNaoEncontradoException {
+        return repository.findById(cpf).orElseThrow(PassageiroNaoEncontradoException::new);
     }
 }
