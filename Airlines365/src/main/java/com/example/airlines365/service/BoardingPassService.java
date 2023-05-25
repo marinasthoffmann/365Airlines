@@ -9,6 +9,7 @@ import com.example.airlines365.model.Passenger;
 import com.example.airlines365.repository.BoardingPassRepository;
 import com.example.airlines365.repository.PassengerRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -19,6 +20,7 @@ import java.util.regex.Pattern;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class BoardingPassService {
 
 
@@ -38,6 +40,8 @@ public class BoardingPassService {
         passageiro.setConfirmacao(confirmacao);
         atualizarMilhas(passageiro);
         passengerRepository.save(passageiro);
+        log.info(String.format("Confirmação feita pelo passageiro de CPF %s com e-ticket %s", cpf.toString(), eticket));
+
         return confirmacao;
     }
 
