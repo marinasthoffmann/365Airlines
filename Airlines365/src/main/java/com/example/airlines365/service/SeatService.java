@@ -20,9 +20,4 @@ public class SeatService {
         }
         return assentos;
     }
-
-    public static String getFormattedSeat(Seat value) {
-        StringBuilder assento_reverso = new StringBuilder(value.toString());
-        return assento_reverso.reverse().toString();
-    }
 }
