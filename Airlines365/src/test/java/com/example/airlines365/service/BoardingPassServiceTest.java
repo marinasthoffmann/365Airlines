@@ -35,8 +35,6 @@ class BoardingPassServiceTest {
     private PassengerRepository passengerRepository;
     @Mock
     private BoardingPassRepository boardingPassRepository;
-    @Mock
-    private StringToSeatConverter converter;
 
     @InjectMocks
     private BoardingPassService service;
