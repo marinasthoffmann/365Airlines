@@ -1,6 +1,7 @@
 package com.example.airlines365.dto;
 
 import com.example.airlines365.model.enums.Seat;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.validation.constraints.Digits;
@@ -9,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 @Data
+@AllArgsConstructor
 public class BoardingPassRequest {
 
     @NotNull(message = "{campo.obrigatorio}")
